@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-input type="text" placeholder="メールアドレス" [(ngModel)]="user.email " name="email"required></ion-input>          
+  <ion-input type="password" placeholder="パスワード"  [(ngModel)]="user.password" name="password" required></ion-input>
+  <ion-button expand="block" color="secondary" type="button" (click)="login_button_click(user)" [disabled]="!user.email || !user.password" >サインイン</ion-button>
+</ion-content>
