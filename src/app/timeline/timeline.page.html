@@ -5,9 +5,38 @@
 </ion-header>
 
 <ion-content>
-  <ion-list class="chat-list">
-      <ion-item *ngFor="let line of lines" no-lines>
-        
-      </ion-item>
-  </ion-list>
+  <ion-list>
+    <ion-card >
+                    <ion-item  item-start >
+                            <ion-avatar item-start>
+                                    <img src="../../assets/icon/favicon.png">
+                            </ion-avatar>
+                            <div>
+                                    <p style="padding-left: 10px;     margin: 0 0 0 0;">Username</p>
+                                    <p style="padding-left: 10px;     margin: 0 0 0 0;">@UserId</p>  
+                            </div>
+                            
+                            <ion-note item-end style="margin: 0 0 0 auto;">yyyy/mm/dd hh:mm</ion-note>
+                    </ion-item>
+                    <ion-item >
+                    <div id=”player” style="margin: 0 auto 0 auto;">
+                                 Contents   
+                    </div>
+                    </ion-item>
+                    <ion-item  style="left:20px">
+                            <div style="margin: 0 auto 0 0;">
+                                    <p >Text<span style="color:rgb(99, 99, 99);"></span></p>
+                            </div>
+                    </ion-item>
+                    <ion-item style="left:20px  display:flex; justify-content:space-between; flex-direction: row;">
+                                            <div>
+                                              <ion-icon name="chatboxes"></ion-icon>1000
+                                            </div>
+                                            <div>
+                                              <ion-icon name="heart"></ion-icon>1000
+                                            </div>
+                    </ion-item>
+    </ion-card>
+</ion-list>
+
 </ion-content>

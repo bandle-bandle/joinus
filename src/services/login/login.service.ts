@@ -21,7 +21,6 @@ export class LoginService {
       var ref=await firebase.firestore().doc('auth/'+data.email).get();
       console.log('data:'+ref.get('id'));
       this.auth_id = ref.get('id') as string;
-      //this.navCtrl.navigateForward('home/'+this.auth_id);
       this.result = {status: "success", "msg": "signInWithEmailAndPassword is correct", ref:this.auth_id};
     } catch (error) {
       this.result = {status: "error", msg: "signInWithEmailAndPassword is not correct", ref:this.auth_id};

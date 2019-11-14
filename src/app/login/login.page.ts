@@ -28,7 +28,6 @@ export class LoginPage implements OnInit {
     this.result = await this.login_S.signIn(this.user);
 
     if(this.result.status === "success"){
-     // this.navCtrl.navigateForward('home/timeline/'+this.result.ref);
       this.router.navigate(['home/timeline/'+this.result.ref]);
     }else if (this.result.status === "error") {
       const alert = await this.alertController.create({
