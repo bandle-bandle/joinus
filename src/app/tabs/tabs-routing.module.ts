@@ -18,20 +18,10 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'timeline/:id',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../timeline/timeline.module').then(m => m.TimelinePageModule)
-          }
-        ]
-      },
-      {
         path: 'tab2',
         children: [
           {
-            path: ':id',
+            path: '',
             loadChildren: () =>
               import('../tab2/tab2.module').then(m => m.Tab2PageModule)
           }
@@ -41,7 +31,7 @@ const routes: Routes = [
         path: 'tab3',
         children: [
           {
-            path: ':id',
+            path: '',
             loadChildren: () =>
               import('../tab3/tab3.module').then(m => m.Tab3PageModule)
           }

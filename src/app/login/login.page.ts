@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController, LoadingController} from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
 import { User } from '../../models/user';
 
@@ -28,13 +29,14 @@ export class LoginPage implements OnInit {
 
     if(this.result.status === "success"){
      // this.navCtrl.navigateForward('home/timeline/'+this.result.ref);
-      this.router.navigate(['home/timeline/${this.result.ref}']);
+      this.router.navigate(['home/timeline/'+this.result.ref]);
     }else if (this.result.status === "error") {
       const alert = await this.alertController.create({
         header: 'エラー',
         message: '入力に誤りがあります',
         buttons: ['OK']
       });
+      alert.present();
     }
   }
 }
