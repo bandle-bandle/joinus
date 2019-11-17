@@ -6,34 +6,34 @@
 
 <ion-content>
   <ion-list>
-    <ion-card >
+    <ion-card *ngFor="let timeline of timelineList">
                     <ion-item  item-start >
                             <ion-avatar item-start>
                                     <img src="../../assets/icon/favicon.png">
                             </ion-avatar>
                             <div>
-                                    <p style="padding-left: 10px;     margin: 0 0 0 0;">Username</p>
-                                    <p style="padding-left: 10px;     margin: 0 0 0 0;">@UserId</p>  
+                                    <p style="padding-left: 10px;     margin: 0 0 0 0;">{{timeline.post_user_name}}</p>
+                                    <p style="padding-left: 10px;     margin: 0 0 0 0;">@{{timeline.post_user_id}}</p>  
                             </div>
                             
-                            <ion-note item-end style="margin: 0 0 0 auto;">yyyy/mm/dd hh:mm</ion-note>
+                            <ion-note item-end style="margin: 0 0 0 auto;">{{timeline.post_date | date:"yy/MM/dd HH:mm"}}</ion-note>
                     </ion-item>
                     <ion-item >
                     <div id=”player” style="margin: 0 auto 0 auto;">
-                                 Contents   
+                      {{timeline.src}}
                     </div>
                     </ion-item>
                     <ion-item  style="left:20px">
                             <div style="margin: 0 auto 0 0;">
-                                    <p >Text<span style="color:rgb(99, 99, 99);"></span></p>
+                                    <p >{{timeline.text}}<span style="color:rgb(99, 99, 99);"></span></p>
                             </div>
                     </ion-item>
                     <ion-item style="left:20px  display:flex; justify-content:space-between; flex-direction: row;">
                                             <div>
-                                              <ion-icon name="chatboxes"></ion-icon>1000
+                                              <ion-icon name="chatboxes"></ion-icon>
                                             </div>
                                             <div>
-                                              <ion-icon name="heart"></ion-icon>1000
+                                              <ion-icon name="heart"></ion-icon>{{timeline.fav_count}}
                                             </div>
                     </ion-item>
     </ion-card>

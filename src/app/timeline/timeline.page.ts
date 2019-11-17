@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, LOCALE_ID  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController} from '@ionic/angular';
+import { DatePipe } from '@angular/common';
 import * as firebase from 'firebase';
 import { TabsPage } from '../tabs/tabs.page';
 import { TimelineService } from '../../services/timeline/timeline.service';
+import { User } from '../../models/user';
+import { Timeline } from '../../models/timeline';
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.page.html',
@@ -12,12 +15,17 @@ import { TimelineService } from '../../services/timeline/timeline.service';
 export class TimelinePage implements OnInit {
   result;
   id:string;
+  user:User;
+  timeline:Timeline;
+  timelineList: any;
   constructor(
+    @Inject(LOCALE_ID) private locale: string,
     public navCtrl: NavController, 
     private route: ActivatedRoute,
+    public alertController: AlertController,
     private tabs: TabsPage,
-    private timelineS: TimelineService
-
+    private timelineS: TimelineService,
+    public datePipe: DatePipe  
     ) {
 
       firebase.auth().onAuthStateChanged((user) => {
@@ -41,8 +49,11 @@ export class TimelinePage implements OnInit {
 
   }
 
-  getTimelineList(){
-   this.result = this.timelineS.getTimelineList();
+  async getTimelineList(){
+    this.result = await this.timelineS.getTimelineList();
+    if(this.result.status === "success"){
+      this.timelineList = this.result.data;
+    }
   }
 
 
