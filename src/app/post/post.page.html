@@ -1,13 +1,22 @@
 <ion-header>
   
   <ion-toolbar>
-      <ion-button>キャンセル</ion-button>
-      <ion-button>投稿</ion-button>
+      <ion-buttons slot="start">
+          <ion-back-button color="primary"></ion-back-button>
+          <ion-button size="small" color="primary" style="right: 0px; position: absolute; left: 80vw; width: 10vw;" (click)="onPostbuttonClick()">投稿</ion-button>
+        </ion-buttons>
+      
   </ion-toolbar>
   
 </ion-header>
 
 <ion-content>
-  <ion-textarea>
+  <ion-textarea placeholder="投稿内容">
    </ion-textarea> 
+   <div [hidden]="!imgSrc">
+      <img src="{{imgSrc}}" alt="" class="img-taken">
+    </div>
+    <div [hidden]="imgSrc">
+        <img src="/assets/shapes.svg" alt="" (click)="takePicture()"/>
+      </div>
 </ion-content>

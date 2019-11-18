@@ -55,7 +55,9 @@ export class TimelinePage implements OnInit {
       this.timelineList = this.result.data;
     }
   }
-
+  onTweetbuttonClick(){
+    this.navCtrl.navigateForward('post/' + this.id);
+  }
 
 
 }

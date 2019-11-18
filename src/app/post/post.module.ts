@@ -9,7 +9,7 @@ import { PostPage } from './post.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: PostPage
   }
 ];
