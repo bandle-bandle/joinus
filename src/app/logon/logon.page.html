@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>アカウント作成</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-input type="text" placeholder="メールアドレス" [(ngModel)]="user.email " name="email" (ionBlur)="checkmail(user.email)" required></ion-input>
+  <ion-input type="text" placeholder="名前" [(ngModel)]="user.name " name="name" required></ion-input>
+  <ion-input type="text" placeholder="ID" [(ngModel)]="user.id " name="id" (ionBlur)="checkid(user.id)" required></ion-input>      
+  <ion-input type="password" placeholder="パスワード"  [(ngModel)]="user.password" name="password" (ionBlur)="checkpassword(user.password)" required></ion-input>
+  <ion-input type="password" placeholder="パスワード再入力"  [(ngModel)]="password2" name="password2" (ionBlur)="checkpassword2(user.password,password2)" required></ion-input>
+  <ion-item>
+    <ion-label>生年月日</ion-label>
+    <ion-datetime 
+    displayFormat="YYYY-MM-DD"
+    [(ngModel)]="user.birthday"
+    placeholder="Select Date"></ion-datetime>
+  </ion-item>
+  <ion-button expand="block" color="secondary" type="button" (click)="logon_button_click(user)" 
+  [disabled]="!user.email || !user.id || !user.password || !user.password2 || !user.birthday" >
+  サインイン
+</ion-button>
+</ion-content>

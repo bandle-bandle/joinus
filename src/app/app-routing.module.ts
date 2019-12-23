@@ -10,7 +10,8 @@ const routes: Routes = [
   },
   { path: 'post', loadChildren: './post/post.module#PostPageModule' },
   { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
-  { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarPageModule' }
+  { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarPageModule' },  { path: 'logon', loadChildren: './logon/logon.module#LogonPageModule' }
+
 
   // ,
   // { path: 'timeline', loadChildren: './timeline/timeline.module#TimelinePageModule' }
