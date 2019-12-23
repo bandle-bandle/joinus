@@ -1,9 +1,71 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>search</ion-title>
+    <ion-searchbar [placeholder]="placeholder" (ionBlur)="search($event)"></ion-searchbar>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment scrollable (ionChange)="segmentChanged($event)">
+      <ion-segment-button value="solo" checked>
+        <ion-label>ソロアカウント</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="band" >
+        <ion-label>バンドアカウント</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="recruit" >
+        <ion-label>募集</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-searchbar></ion-searchbar>
+  <ion-slides pager="true"  [options]="slideOpts">
+    <ion-slide  style="height: 75vh;">
+      <ion-list>
+        <ion-card *ngFor="let search of solo_searchList">
+          <ion-item style="width:100vw;">
+                  <ion-avatar>
+                          <img src="../../assets/icon/favicon.png">
+                  </ion-avatar>
+                  <div>
+                          <p style="padding-left: 10px;     margin: 0 0 0 0;">{{search.name}}</p>
+                          <p style="padding-left: 10px;     margin: 0 0 0 0;">@{{search.id}}</p>  
+                  </div>
+                  
+          </ion-item>
+        </ion-card>
+      </ion-list>
+    </ion-slide>
+    <ion-slide style="height: 75vh;">
+      <ion-list>
+        <ion-card *ngFor="let search of band_searchList">
+        <ion-item  style="width:100vw;">
+                <ion-avatar >
+                        <img src="../../assets/icon/favicon.png">
+                </ion-avatar>
+                <div>
+                        <p style="padding-left: 10px;     margin: 0 0 0 0;">{{search.name}}</p>
+                        <p style="padding-left: 10px;     margin: 0 0 0 0;">@{{search.id}}</p>  
+                </div>
+                
+        </ion-item>
+      </ion-card>
+    </ion-list>
+    </ion-slide>
+    <ion-slide  style="height: 75vh;">
+      <ion-list>
+        <ion-card *ngFor="let search of recruit_searchList">
+        <ion-item style="width:100vw;">
+                <ion-avatar>
+                        <img src="../../assets/icon/favicon.png">
+                </ion-avatar>
+                <div>
+                        <p style="padding-left: 10px;     margin: 0 0 0 0;">{{search.name}}</p>
+                        <p style="padding-left: 10px;     margin: 0 0 0 0;">@{{search.id}}</p>  
+                </div>
+                
+        </ion-item>
+      </ion-card>
+    </ion-list>
+    </ion-slide>
+  </ion-slides>
 </ion-content>

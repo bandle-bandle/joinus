@@ -12,7 +12,7 @@ export class TimelineService {
   async getTimelineList() {
     try {
       let list = [];
-    let ref = await firebase.firestore().collection('post').get();
+     let ref = await firebase.firestore().collection('post').get();
       ref.forEach(doc =>{
         list.push(new Timeline(doc));
       });
