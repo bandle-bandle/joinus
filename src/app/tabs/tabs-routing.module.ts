@@ -36,6 +36,16 @@ const routes: Routes = [
               import('../calendar/calendar.module').then(m => m.CalendarPageModule)
           }
         ]
+      },
+      {
+        path: 'talklist',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../talklist/talklist.module').then(m => m.TalklistPageModule)
+          }
+        ]
       }
     ]
   }
