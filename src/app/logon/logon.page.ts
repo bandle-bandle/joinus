@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController, AlertController, LoadingController} from '@ionic/angular';
+import { Router } from '@angular/router';
 import { LogonCheckService } from '../../services/check/logon-check.service';
 import { LogonService } from '../../services/logon/logon.service';
 import { SoloAccount } from '../../models/solo-account';
@@ -10,9 +12,13 @@ import { SoloAccount } from '../../models/solo-account';
 export class LogonPage implements OnInit {
   user = {} as SoloAccount;
   password2: string;
+  result;
   constructor(
     private logon_S: LogonService,
     private logonC_S: LogonCheckService,
+    public alertController: AlertController,
+    public navCtrl: NavController,
+    private router: Router
   ) { }
 
   ngOnInit() {
