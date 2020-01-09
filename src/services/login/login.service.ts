@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import { User } from '../../models/user';
+import { Auth } from '../../models/auth';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  user:User;
+  user:Auth;
   result;
   auth_id;
   

@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 import * as firebase from 'firebase';
 import { TabsPage } from '../tabs/tabs.page';
 import { TimelineService } from '../../services/timeline/timeline.service';
-import { User } from '../../models/user';
+import { Auth } from '../../models/auth';
 import { Timeline } from '../../models/timeline';
 @Component({
   selector: 'app-timeline',
@@ -15,7 +15,7 @@ import { Timeline } from '../../models/timeline';
 export class TimelinePage implements OnInit {
   result;
   id:string;
-  user:User;
+  user:Auth;
   timeline:Timeline;
   timelineList: any;
   constructor(

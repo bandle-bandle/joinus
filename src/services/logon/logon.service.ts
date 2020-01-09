@@ -7,11 +7,16 @@ export class LogonService {
   result;
   auth_id;
   constructor() { }
-  async logon(data){
+
+  async logon(data,auth){
     try {
-      var ref=await firebase.firestore().doc('auth/'+data.email).get();
-      console.log('data:'+ref.get('id'));
-      this.auth_id = ref.get('id') as string;
+      // 権限登録
+      var ref=await firebase.firestore().doc('auth/'+auth.email).set({id:auth.email});
+      await firebase.auth().createUserWithEmailAndPassword(auth.email,auth.password)
+        .then((res: any) => console.log(res))
+        .catch((error: any) => console.error(error));
+      // soloアカウント作成
+      var ref=await firebase.firestore().doc('solo_account/'+data.email).set(data);
       this.result = {status: "success", "msg": "signInWithEmailAndPassword is correct", ref:this.auth_id};
     } catch (error) {
       this.result = {status: "error", msg: "signInWithEmailAndPassword is not correct", ref:this.auth_id};

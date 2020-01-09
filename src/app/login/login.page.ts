@@ -3,7 +3,7 @@ import { NavController, AlertController, LoadingController} from '@ionic/angular
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { LoginService } from '../../services/login/login.service';
-import { User } from '../../models/user';
+import { Auth } from '../../models/auth';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ import { User } from '../../models/user';
 })
 export class LoginPage implements OnInit {
   result;
-  user = {} as User;
+  user = {} as Auth;
   constructor(
     private login_S: LoginService,
     public alertController: AlertController,
