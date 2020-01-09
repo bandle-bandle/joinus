@@ -17,9 +17,9 @@ export class LogonService {
         .catch((error: any) => console.error(error));
       // soloアカウント作成
       var ref=await firebase.firestore().doc('solo_account/'+data.email).set(data);
-      this.result = {status: "success", "msg": "signInWithEmailAndPassword is correct", ref:this.auth_id};
+      this.result = {status: "success", "msg": "logon is correct", ref:this.auth_id};
     } catch (error) {
-      this.result = {status: "error", msg: "signInWithEmailAndPassword is not correct", ref:this.auth_id};
+      this.result = {status: "error", msg: "logon is not correct", ref:this.auth_id};
     }
     return this.result;
   }

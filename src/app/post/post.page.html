@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-textarea placeholder="投稿内容">
+  <ion-textarea placeholder="投稿内容" [(ngModel)]="data.Text">
    </ion-textarea> 
    <div [hidden]="!imgSrc">
       <img src="{{imgSrc}}" alt="" class="img-taken">
