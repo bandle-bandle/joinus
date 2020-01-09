@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button icon-only (click)="exitChat()">
+        <ion-icon name="exit"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list class="chat-list">
+    <ion-item *ngFor="let message of messageList" no-lines>
+      <ng-template #message>
+        <div class="chat-message" text-right *ngIf="message.user_id === user_id">
+          <div class="right-bubble">
+            <span class="msg-name">{{message.user_name}}</span>
+            <span class="msg-date">{{message.datetime | date:'short'}}</span>
+            <p text-wrap>{{message.text}}</p>
+          </div>
+        </div>
+        <div class="chat-message" text-left *ngIf="message.user_id !== user_id">
+          <div class="left-bubble">
+            <span class="msg-name">{{message.user_name}}</span>
+            <span class="msg-date">{{message.datetime | date:'short'}}</span>
+            <p text-wrap>{{message.text}}</p>
+          </div>
+        </div>
+      </ng-template>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+
+  <ion-toolbar>
+    <ion-input type="text" placeholder="Type a message" [(ngModel)]="chatMessage" name="message"></ion-input>
+    <ion-buttons slot="end">
+      <ion-button slot="end" color="primary" (click)="sendChatMessage()">
+        Send
+        <ion-icon name="send"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

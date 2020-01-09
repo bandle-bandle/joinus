@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController, AlertController, LoadingController} from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { TalklistService } from '../../services/talk/talklist.service';
 @Component({
@@ -13,6 +14,7 @@ export class TalklistPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private talklist_S:TalklistService,
+    public navCtrl: NavController
     ) { 
       this.id = this.route.snapshot.paramMap.get('id') as string;
       this.getTalkList();
@@ -24,7 +26,7 @@ export class TalklistPage implements OnInit {
     }
   }
   joinRoom(id){
-
+    this.navCtrl.navigateForward('talkroom/'+this.id+'/'+id);
   }
   onCreatebuttonClick(){
 
