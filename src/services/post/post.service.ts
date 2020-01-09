@@ -26,10 +26,22 @@ export class PostService {
     return this.result;
   }
   async post(data){
+    let post_id;
     try {
       // 投稿
       data.post_date = await firebase.firestore.Timestamp.fromDate(new Date());
-      var ref2 = await firebase.firestore().collection('post').add({
+      await firebase.firestore().collection('post').add({
+        Text:data.Text,
+        fav_count:data.fav_count,
+        post_date:data.post_date,
+        post_user_id:data.post_user_id,
+        post_user_name:data.post_user_name,
+        src:{src_type:"",src_url:""}
+      }).then(ref => {
+        console.log('Added document with ID: ', ref.id);
+        post_id = ref.id;
+      });
+      await firebase.firestore().collection('solo_account/'+data.post_user_id+'/post/').doc(post_id).set({
         Text:data.Text,
         fav_count:data.fav_count,
         post_date:data.post_date,
