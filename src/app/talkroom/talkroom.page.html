@@ -11,19 +11,19 @@
 
 <ion-content padding>
   <ion-list class="chat-list">
-    <ion-item *ngFor="let message of messageList" no-lines>
-        <div class="chat-message" text-right *ngIf="message.user_id === user_id">
+    <ion-item *ngFor="let message of messageList | keyvalue ; trackBy: trackItem" no-lines>
+        <div class="chat-message" text-right *ngIf="message.value.user_id === user_id">
           <div class="right-bubble">
-            <span class="msg-name">{{message.user_name}}</span>
-            <span class="msg-date">{{message.datetime | date:'short'}}</span>
-            <p text-wrap>{{message.text}}</p>
+            <span class="msg-name">{{message.value.user_name}}</span>
+            <span class="msg-date">{{message.value.datetime }}</span>
+            <p text-wrap>{{message.value.text}}</p>
           </div>
         </div>
-        <div class="chat-message" text-left *ngIf="message.user_id !== user_id">
+        <div class="chat-message" text-left *ngIf="message.value.user_id !== user_id">
           <div class="left-bubble">
-            <span class="msg-name">{{message.user_name}}</span>
-            <span class="msg-date">{{message.datetime | date:'short'}}</span>
-            <p text-wrap>{{message.text}}</p>
+            <span class="msg-name">{{message.value.user_name}}</span>
+            <span class="msg-date">{{message.value.datetime }}</span>
+            <p text-wrap>{{message.value.text}}</p>
           </div>
         </div>
     </ion-item>
