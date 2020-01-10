@@ -20,17 +20,40 @@ export class TalkroomPage implements OnInit {
     public navCtrl: NavController,
     public talkroom_S:TalkroomService
   ) {
+
     this.user_id = this.route.snapshot.paramMap.get('user_id') as string;
     this.talk_id = this.route.snapshot.paramMap.get('id') as string;
-    this.title = this.getTakRoomData();
-    this.getTalkRoomMessageList();
+    this.getTakRoomData().then(data=>{
+      console.log('!');
+    });
+    this.getTalkRoomMessageList().then(data=>{
+      console.log('!');
+    });
   }
-  async getTalkRoomMessageList(){
-    this.result = await this.talkroom_S.getTalkRoomMessageList(this.user_id,this.talk_id);
-    this.messageList = this.result.data;
+  getTalkRoomMessageList(){
+    let result =null;
+    return this.talkroom_S.getTalkRoomMessageList(this.user_id,this.talk_id).then(data=>{
+      result=data;
+      if(result != null){
+        if(result.status === "success"){
+          this.messageList = result.data;
+        }
+      }
+      
+    });
+    
   }
-  async getTakRoomData(){
-    this.result = await this.talkroom_S.getTakRoomData(this.user_id,this.talk_id);
+  getTakRoomData(){
+    let result;
+    return this.talkroom_S.getTakRoomData(this.user_id,this.talk_id).then(data=>{
+      result=data;
+      if(result != null){
+        if(result.status === "success"){
+          this.title = result.data;
+        }
+      }
+    });
+    
   }
   ngOnInit() {
   }

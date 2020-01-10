@@ -10,13 +10,15 @@ const routes: Routes = [
   },
   { path: 'post', loadChildren: './post/post.module#PostPageModule' },
   { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
-  { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarPageModule' },  { path: 'logon', loadChildren: './logon/logon.module#LogonPageModule' },
+  { path: 'calendar', loadChildren: './calendar/calendar.module#CalendarPageModule' },
+  { path: 'logon', loadChildren: './logon/logon.module#LogonPageModule' },
   { path: 'talklist', loadChildren: './talklist/talklist.module#TalklistPageModule' },
-  { path: 'talkroom', loadChildren: './talkroom/talkroom.module#TalkroomPageModule' }
+  { path: 'talkroom', loadChildren: './talkroom/talkroom.module#TalkroomPageModule' },
+  { path: 'account', loadChildren: './account/account.module#AccountPageModule' }
 
 
-  // ,
-  // { path: 'timeline', loadChildren: './timeline/timeline.module#TimelinePageModule' }
+  ,
+  { path: 'timeline', loadChildren: './timeline/timeline.module#TimelinePageModule' }
 ];
 @NgModule({
   imports: [

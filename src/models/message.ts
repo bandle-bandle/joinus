@@ -5,10 +5,10 @@ export class Message {
     user_name;
     datetime;
     constructor(data){
-        this.id = data.data().id;
-        this.text = data.data().text;
-        this.user_id = data.data().user_id;
-        this.user_name = data.data().user_name;
-        this.datetime = data.data().datetime;
+        this.id = data.id;
+        this.text = data.text;
+        this.user_id = data.user_id;
+        this.user_name = data.user_name;
+        this.datetime = data.datetime;
     }
 }

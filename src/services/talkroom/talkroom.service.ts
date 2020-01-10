@@ -7,9 +7,9 @@ import { Message } from '../../models/message';
 })
 export class TalkroomService {
 title;
-result;
   constructor() { }
   async getTalkRoomMessageList(user_id,talk_id){
+    let result;
     let chats = [];
     try {
       await firebase.database().ref(talk_id+'/').on('value',resp=>{
@@ -19,15 +19,17 @@ result;
             chat.key = childSnapshot.key;
             chats.push(new Message(chat));
           });
-          this.result = {status: "success", msg: "getUserName is correct",data:chats};
+          result = {status: "success", msg: "getUserName is correct",data:chats};
         }
       });
     }catch (error) {
-      this.result = {status: "error", msg: "getUserName is not correct"};
-      console.log(this.result);
+      result = {status: "error", msg: "getUserName is not correct"};
+      console.log(result);
     }
+    return result;
   }
   async getTakRoomData(user_id,talk_id){
+    let result;
     try {
       // タイトル取得
       let ref = await firebase.firestore().collection('solo_account/'+user_id+'/talkroom/').doc(talk_id).get().then(doc => {
@@ -35,13 +37,14 @@ result;
           console.log('No such document!');
         } else {
           this.title = doc.data()["title"];
-          this.result = {status: "success", msg: "getUserName is correct",data:this.title};
+          result = {status: "success", msg: "getUserName is correct",data:this.title};
           console.log('Document data:', this.title);
         }
       });  
      } catch (error) {
-       this.result = {status: "error", msg: "getUserName is not correct"};
-       console.log(this.result);
+       result = {status: "error", msg: "getUserName is not correct"};
+       console.log(result);
      }
+     return result;
   }
 }

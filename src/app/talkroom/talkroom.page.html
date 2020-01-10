@@ -12,7 +12,6 @@
 <ion-content padding>
   <ion-list class="chat-list">
     <ion-item *ngFor="let message of messageList" no-lines>
-      <ng-template #message>
         <div class="chat-message" text-right *ngIf="message.user_id === user_id">
           <div class="right-bubble">
             <span class="msg-name">{{message.user_name}}</span>
@@ -27,7 +26,6 @@
             <p text-wrap>{{message.text}}</p>
           </div>
         </div>
-      </ng-template>
     </ion-item>
   </ion-list>
 </ion-content>
