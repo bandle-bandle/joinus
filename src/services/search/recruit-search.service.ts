@@ -18,4 +18,14 @@ export class RecruitSearchService {
     }
     return this.result;
   }
+  async getRecruitProfile(id){
+    try{
+      let ref = await firebase.firestore().collection('recruit/');
+      let query = ref.where("user_id", "==", id);
+      this.result = {status: "success", msg: "getSoloSearch is correct", ref:query};
+    }catch (error) {
+      this.result = {status: "success", msg: "getSoloSearch is not correct", ref:error};
+    }
+    return this.result;
+  }
 }

@@ -21,7 +21,7 @@
   <ion-slides pager="true"  [options]="slideOpts">
     <ion-slide  style="height: 75vh;">
       <ion-list style="height: 75vh;">
-          <ion-item*ngFor="let search of solo_searchList" style="width:100vw;">
+          <ion-item *ngFor="let search of solo_searchList" style="width:100vw;" (click)="solo_click(search)">
                   <ion-avatar>
                           <img src="../../assets/icon/favicon.png">
                   </ion-avatar>

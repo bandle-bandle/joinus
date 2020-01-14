@@ -24,4 +24,20 @@ export class SoloSearchService {
     }
     return this.result;
   }
+  async getSoloProfile(id){
+    try{
+      let list = [];
+      let ref = await firebase.firestore().collection('solo_account/');
+      let query = ref.where("id", "==", id);
+      query.get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc){
+          list.push(new SoloSearch(doc.id, doc.data()));
+        });
+      });
+      this.result = {status: "success", msg: "getSoloSearch is correct", data:list[0]};
+    } catch (error) {
+      this.result = {status: "success", msg: "getSoloSearch is not correct", data:error};
+    }
+    return this.result;
+  }
 }

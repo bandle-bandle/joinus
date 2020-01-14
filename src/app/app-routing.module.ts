@@ -18,7 +18,8 @@ const routes: Routes = [
 
 
   ,
-  { path: 'timeline', loadChildren: './timeline/timeline.module#TimelinePageModule' }
+  { path: 'timeline', loadChildren: './timeline/timeline.module#TimelinePageModule' },  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' }
+
 ];
 @NgModule({
   imports: [

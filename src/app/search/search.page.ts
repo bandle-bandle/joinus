@@ -1,14 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { NavController} from '@ionic/angular';
 import {IonSlides} from "@ionic/angular";
 import { SoloSearchService } from '../../services/search/solo-search.service';
 import { BandSearchService } from '../../services/search/band-search.service';
 import { RecruitSearchService } from '../../services/search/recruit-search.service';
+import { ProfilePage } from '../profile/profile.page';
 @Component({
   selector: 'app-search',
   templateUrl: './search.page.html',
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
+  my_user_id;
   @ViewChild(IonSlides,{static:false}) slides: IonSlides;
   slideOpts = {
     initialSlide: 0,
@@ -34,7 +38,10 @@ export class SearchPage implements OnInit {
     private SoloS_S: SoloSearchService,
     private BandS_S: BandSearchService,
     private RecruitS_S: RecruitSearchService,
+    private route: ActivatedRoute,
+    public navCtrl: NavController,
   ) {
+    this.my_user_id = this.route.snapshot.paramMap.get('id') as string;
     this.searchMode = "solo";
     this.placeholder = this.placeholders["solo"];
    }
@@ -84,5 +91,8 @@ export class SearchPage implements OnInit {
       }
       
     }
+  }
+  solo_click(search){
+    this.navCtrl.navigateForward('profile/'+this.my_user_id+'/'+this.searchMode+'/'+search.id);
   }
 }
