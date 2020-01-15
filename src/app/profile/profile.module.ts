@@ -9,7 +9,7 @@ import { ProfilePage } from './profile.page';
 
 const routes: Routes = [
   {
-    path: ':my_user_id/:type/:profile',
+    path: ':my_user_id/:type/:profile_id',
     component: ProfilePage
   }
 ];

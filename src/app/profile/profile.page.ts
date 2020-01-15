@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { SoloSearchService } from '../../services/search/solo-search.service';
 import { BandSearchService } from '../../services/search/band-search.service';
 import { RecruitSearchService } from '../../services/search/recruit-search.service';
+import { ProfileService } from '../../services/profile/profile.service';
+import { async } from 'rxjs/internal/scheduler/async';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -10,58 +12,75 @@ import { RecruitSearchService } from '../../services/search/recruit-search.servi
 })
 export class ProfilePage implements OnInit {
   my_user_id;
-  profile;
+  profile_id;
   type;
-  result;
-  solo_searchList;
-  band_searchList;
-  recruit_searchList;
+  solo_searchData;
+  band_searchData;
+  recruit_searchData;
+  profile_data = {
+    id:"",
+    name:"",
+    birthday:"",
+    email:"",
+    sex:"",
+    profile:""
+  }
   constructor(
     private route: ActivatedRoute,
     private SoloS_S: SoloSearchService,
     private BandS_S: BandSearchService,
     private RecruitS_S: RecruitSearchService,
+    private Profile_S: ProfileService,
   ) {
+    let result;
     this.my_user_id = this.route.snapshot.paramMap.get('my_user_id') as string;
     this.type = this.route.snapshot.paramMap.get('type') as string;
-    this.profile = this.route.snapshot.paramMap.get('profile_id');
+    this.profile_id = this.route.snapshot.paramMap.get('profile_id');
     switch(this.type){
       case "solo":
         console.log("solo");
-        this.result = this.SoloS_S.getSoloProfile(this.profile);
+        this.getSoloProfile(this.profile_id);
         break;
       case "band":
         console.log("band");
-        this.result = this.BandS_S.getBandProfile(this.profile);
+        result = this.BandS_S.getBandProfile(this.profile_id);
         break;
       case "recruit":
         console.log("recruit");
-        this.result = this.RecruitS_S.getRecruitProfile(this.profile);
+        result = this.RecruitS_S.getRecruitProfile(this.profile_id);
         break;
       default:
-        this.result = {status: "error", msg: "getSoloSearch front is not working"};
+        result = {status: "error", msg: "getSoloSearch front is not working"};
         console.log("default");
         break;
     }
-    if(this.result.status === "success"){
-      switch(this.type){
-        case "solo":
-          this.solo_searchList = this.result.data;
-          break;
-        case "band":
-          this.band_searchList = this.result.data;
-          break;
-        case "recruit":
-          this.recruit_searchList = this.result.data;
-          break;
-        default:
-          break;
-      }
-      
-    }
    }
+   async getSoloProfile(id){
+    let result;
+    result = await this.SoloS_S.getSoloProfile(this.profile_id);
+    if(result.status === "success"){
+      this.profile_data = result.data;
+    }
+    // return await new Promise(async(resolve,reject)=>{
+    //   result = await this.SoloS_S.getSoloProfile(this.profile_id).then((data)=>{
+    //     result=data;
+    //     if(result != null){
+    //       if(result.status === "success"){
+    //         resolve(result.data);
+    //       }
+    //     }
+    //   });
+    // });
+   }
+   friendRequest(){
+    this.Profile_S.friendRequest(this.my_user_id);
+   }
+  addFun(){
 
+  }
+  createMessage(){
+
+  }
   ngOnInit() {
   }
-
 }

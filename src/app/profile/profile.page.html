@@ -1,9 +1,52 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-back-button slot="start"></ion-back-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content >
+  <ion-card>
+      <ion-item item-start >
+          <ion-grid>
+          <ion-row>
+              <ion-col>
+                <div>
+                    <img style="    width: 80%; margin: auto auto auto auto;"src="../../assets/icon/favicon.png">
+                </div>
+              </ion-col>
+              <ion-col>
+                  <div>
+                      <p >{{profile_data.name}}</p>
+                      <p >{{profile_data.id}}</p>
+                      <p >{{profile_data.age}}歳</p>  
+                      <p >{{profile_data.area}}</p>  
+                      <p >{{profile_data.sex}}</p>  
+                  </div>
+                </ion-col>
+              </ion-row>
+              </ion-grid>
+      </ion-item>
+      <ion-item lines="none" style="--border-color:#ffffff;">
+          <ion-grid>
+              <ion-row>
+                  <ion-col>
+                    <div>
+                        <ion-button expand="block" color="secondary" type="button" (click)="friendRequest()">フレンド申請</ion-button>
+                    </div>
+                  </ion-col>
+                  <ion-col>
+                      <div>
+                          <ion-button expand="block" color="secondary" type="button" (click)="addFun()">ファンになる</ion-button>
+                      </div>
+                    </ion-col>
+                    <ion-col>
+                      <div>
+                          <ion-button expand="block" color="secondary" type="button" (click)="createMessage()">メッセージを送る</ion-button>
+                      </div>
+                    </ion-col>
+                  </ion-row>
+                  </ion-grid>
+      </ion-item>
+  </ion-card>
+  <ion-button expand="block" color="primary" color="secondary" type="button" (click)="edit()">アカウント情報修正</ion-button>
 </ion-content>

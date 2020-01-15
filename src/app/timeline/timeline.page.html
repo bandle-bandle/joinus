@@ -1,12 +1,15 @@
 <ion-header>
   <ion-toolbar>
+    <ion-avatar slot="start" (click)="profile(id)">
+      <img src="../../assets/icon/favicon.png">
+    </ion-avatar>
     <ion-title>timeline</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-card *ngFor="let timeline of timelineList">
+    <ion-card *ngFor="let timeline of timelineList" (click)="profile(timeline.post_user_id)">
                     <ion-item  item-start >
                             <ion-avatar item-start>
                                     <img src="../../assets/icon/favicon.png">

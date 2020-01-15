@@ -58,6 +58,14 @@ export class TimelinePage implements OnInit {
   onTweetbuttonClick(){
     this.navCtrl.navigateForward('post/' + this.id);
   }
-
+  profile(id){
+    if(id ==this.id){
+      let searchMode = "solo"
+      this.navCtrl.navigateForward('account/'+this.id);
+    }else{
+      let searchMode = "solo"
+    this.navCtrl.navigateForward('profile/'+this.id+'/'+searchMode+'/'+id);
+    }
+  }
 
 }

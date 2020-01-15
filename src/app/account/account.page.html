@@ -1,9 +1,75 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>account</ion-title>
+    <ion-back-button slot="start"></ion-back-button>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content >
+  <ion-card>
+      <ion-item item-start >
+          <ion-grid>
+          <ion-row>
+              <ion-col>
+                <div>
+                    <img style="    width: 80%; margin: auto auto auto auto;"src="../../assets/icon/favicon.png">
+                </div>
+              </ion-col>
+              <ion-col>
+                  <div>
+                      <p >{{profile_data.name}}</p>
+                      <p >{{profile_data.id}}</p>
+                      <p >{{profile_data.age}}歳</p>  
+                      <p >{{profile_data.area}}</p>  
+                      <p >{{profile_data.sex}}</p>  
+                  </div>
+                </ion-col>
+              </ion-row>
+              </ion-grid>
+      </ion-item>
+      <ion-toolbar>
+        <ion-segment scrollable (ionChange)="segmentChanged($event)">
+          <ion-segment-button value="solo" checked>
+            <ion-label>Myプロフィール</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="band" >
+            <ion-label>My投稿</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="recruit" >
+            <ion-label>フレンド申請中</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="recruit" >
+            <ion-label>Myファン</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+    <ion-slides (ionSlideWillChange)="onSlideChangeStart()" #Slids>
+      <ion-slide >
+              <ion-item lines="none" >
+                      プロフィール
+              </ion-item>
+      </ion-slide>
+      <ion-slide >
+        <ion-list>
+          <ion-item>
+            My投稿
+          </ion-item>
+        </ion-list>
+      </ion-slide>
+      <ion-slide >
+        <ion-list>
+          <ion-item>
+            フレンド申請中
+          </ion-item>
+        </ion-list>
+      </ion-slide>
+      <ion-slide >
+        <ion-list>
+          <ion-item>
+            Myファン
+          </ion-item>
+        </ion-list>
+      </ion-slide>
+</ion-slides>
+  </ion-card>
+  <ion-button expand="block" color="primary" color="secondary" type="button" (click)="edit()">アカウント情報修正</ion-button>
 </ion-content>
