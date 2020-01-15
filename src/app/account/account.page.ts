@@ -24,6 +24,9 @@ export class AccountPage implements OnInit {
     sex:"",
     profile:""
   }
+  src="";
+  new_src="";
+  file:File;
   constructor(
     private route: ActivatedRoute,
     private SoloS_S: SoloSearchService,
@@ -33,6 +36,12 @@ export class AccountPage implements OnInit {
   ) {
     this.my_user_id = this.route.snapshot.paramMap.get('id') as string;
     this.getSoloProfile(this.my_user_id);
+    this.getAvatorURL(this.my_user_id+'/avator/'+this.my_user_id+'.jpg');
+   }
+   getAvatorURL(url){
+     let str = this.Profile_S.getAvatorURL(url,this.my_user_id).then(data =>{
+      this.src = data;
+     })
    }
    async getSoloProfile(id){
     let result;
@@ -41,6 +50,11 @@ export class AccountPage implements OnInit {
       this.profile_data = result.data;
     }
    }
+   changeListener($event) : void {
+    this.file = $event.target.files[0];
+    this.Profile_S.setAvatorFile(this.my_user_id,this.my_user_id+'/avator/'+this.my_user_id+'.jpg',this.file);
+    this.getAvatorURL(this.my_user_id+'/avator/'+this.my_user_id+'.jpg');
+  }
    friendRequest(){
     this.Profile_S
    }

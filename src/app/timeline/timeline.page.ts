@@ -7,6 +7,7 @@ import { TabsPage } from '../tabs/tabs.page';
 import { TimelineService } from '../../services/timeline/timeline.service';
 import { Auth } from '../../models/auth';
 import { Timeline } from '../../models/timeline';
+import { ProfileService } from '../../services/profile/profile.service';
 @Component({
   selector: 'app-timeline',
   templateUrl: './timeline.page.html',
@@ -18,6 +19,7 @@ export class TimelinePage implements OnInit {
   user:Auth;
   timeline:Timeline;
   timelineList: any;
+  my_src = "";
   constructor(
     @Inject(LOCALE_ID) private locale: string,
     public navCtrl: NavController, 
@@ -25,7 +27,8 @@ export class TimelinePage implements OnInit {
     public alertController: AlertController,
     private tabs: TabsPage,
     private timelineS: TimelineService,
-    public datePipe: DatePipe  
+    public datePipe: DatePipe,
+    private Profile_S: ProfileService,
     ) {
 
       firebase.auth().onAuthStateChanged((user) => {
@@ -34,6 +37,7 @@ export class TimelinePage implements OnInit {
 
           this.id = this.route.snapshot.paramMap.get('id') as string;
           this.tabs.id = this.id;
+          this.getAvatorURL(this.id+'/avator/'+this.id+'.jpg');
           this.getTimelineList();
         }else{
 
@@ -67,5 +71,9 @@ export class TimelinePage implements OnInit {
     this.navCtrl.navigateForward('profile/'+this.id+'/'+searchMode+'/'+id);
     }
   }
-
+  getAvatorURL(url){
+    let str = this.Profile_S.getAvatorURL("",this.id).then(data =>{
+     this.my_src = data;
+    })
+  }
 }

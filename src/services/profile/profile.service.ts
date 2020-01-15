@@ -29,4 +29,56 @@ export class ProfileService {
   createMessage(){
 
   }
+  async getAvatorURL(url,id){
+    let src;
+    let src_return;
+    await this.getSrc(id).then(async data => {
+      if (!data !=null) {
+        src = data;
+        await this.getUrl(src).then(url => {
+          src_return = url;
+        });
+      } else {
+        src_return="../../assets/icon/favicon.png"
+      }
+    });
+    return src_return;
+  }
+  async getSrc(id){
+    let src;
+    let ref = await firebase.firestore().collection('solo_account/').doc(id).get().then(doc => {
+      if (!doc.exists) {
+        console.log('No such document!');
+        src ="";
+      } else {
+        src = doc.data()["src"];
+      }
+    }); 
+    return src;
+  }
+  async getUrl(url){
+    let src;
+    let ref = await firebase.storage().ref().child(url).getDownloadURL().then((data) => {
+      if(data != null){
+        src = data
+      }else{
+        src="../../assets/icon/favicon.png"
+      }
+    }); 
+    return src;
+  }
+  async setAvatorFile(id,url,file){
+    await this.setSrc(id,url);
+    await this.setFile(url,file);
+  }
+  async setSrc(id,url){
+    let src;
+    await firebase.firestore().doc('solo_account/'+id).set({src:url});
+  }
+  async setFile(url,file){
+    let src;
+    firebase.storage().ref().child(url).put(file).then(function(snapshot) {
+      console.log('Uploaded a blob or file!');
+    });
+  }
 }
