@@ -43,7 +43,7 @@ title;
           if (!doc.exists) {
             console.log('No such document!');
           } else {
-            this.title = doc.data()["title"];
+            this.title = doc.data()["Title"];
             result = {status: "success", msg: "getUserName is correct",data:this.title};
             console.log('Document data:', this.title);
             resolve(result);

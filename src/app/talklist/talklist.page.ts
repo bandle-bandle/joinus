@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController, LoadingController} from '@ionic/angular';
+import { NavController, ModalController, LoadingController} from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { TalklistService } from '../../services/talk/talklist.service';
+import { AddroomPage } from '../addroom/addroom.page';
 @Component({
   selector: 'app-talklist',
   templateUrl: './talklist.page.html',
@@ -14,6 +15,7 @@ export class TalklistPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private talklist_S:TalklistService,
+    public modalController: ModalController,
     public navCtrl: NavController
     ) { 
       this.id = this.route.snapshot.paramMap.get('id') as string;
@@ -29,9 +31,11 @@ export class TalklistPage implements OnInit {
     this.navCtrl.navigateForward('talkroom/'+this.id+'/'+id);
   }
   onCreatebuttonClick(){
-
+    this.navCtrl.navigateForward('addroom/'+this.id);
   }
   ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id') as string;
+      this.getTalkList();
   }
 
 }

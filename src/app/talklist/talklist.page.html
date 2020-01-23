@@ -7,7 +7,7 @@
 <ion-content main padding>
   <ion-list>
     <ion-item *ngFor="let room of rooms" (click)="joinRoom(room.id)">
-      {{room.title}}
+      {{room.Title}}
       <ion-icon name="chatboxes" slot="end"></ion-icon>
       <ion-note item-end style="margin: 0 0 0 auto;">{{room.last_date | date:"yy/MM/dd HH:mm"}}</ion-note>
     </ion-item>
