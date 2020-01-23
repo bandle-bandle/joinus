@@ -17,7 +17,7 @@
     placeholder="生年月日"></ion-datetime>
   </ion-item>
   <ion-button expand="block" color="secondary" type="button" (click)="logon_button_click(user)" 
-  [disabled]="!user.email || !user.id || !user.name || !user.password || !user.password2 " >
+  [disabled]="!user.email || !user.id || !user.name || !password || !password2 " >
   サインイン
 </ion-button>
 </ion-content>
