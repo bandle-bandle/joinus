@@ -4,12 +4,11 @@
       <ion-back-button color="primary"></ion-back-button>
       <ion-button size="small" color="primary" style="right: 0px; position: absolute; left: 80vw; width: 10vw;" (click)="onCreateClick()">作成</ion-button>
     </ion-buttons>
-    <ion-title>トーク作成</ion-title>
+    <ion-title><ion-input type="text" placeholder="タイトルを入力" [(ngModel)]="title" name="title"></ion-input></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-input type="text" placeholder="タイトル" [(ngModel)]="title" name="title"></ion-input>
   <ion-list style="height: 75vh;">
     <ion-item *ngFor="let friend of friendList" style="width:100vw;">
             <ion-checkbox [(ngModel)]="friend.isChecked " name="isChecked" ></ion-checkbox>
