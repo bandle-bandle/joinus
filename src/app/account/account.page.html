@@ -29,48 +29,86 @@
       </ion-item>
       <ion-toolbar>
         <ion-segment scrollable (ionChange)="segmentChanged($event)">
-          <ion-segment-button value="solo" checked>
+          <ion-segment-button value="profile" checked>
             <ion-label>Myプロフィール</ion-label>
           </ion-segment-button>
-          <ion-segment-button value="band" >
+          <ion-segment-button value="post" >
             <ion-label>My投稿</ion-label>
           </ion-segment-button>
-          <ion-segment-button value="recruit" >
+          <ion-segment-button value="friend" >
             <ion-label>フレンド申請中</ion-label>
           </ion-segment-button>
-          <ion-segment-button value="recruit" >
+          <ion-segment-button value="fun" >
             <ion-label>Myファン</ion-label>
           </ion-segment-button>
         </ion-segment>
       </ion-toolbar>
-    <ion-slides (ionSlideWillChange)="onSlideChangeStart()" #Slids>
+    <ion-slides  [options]="slideOpts">
       <ion-slide >
-              <ion-item lines="none" >
-                      プロフィール
+        <ion-list>
+          <ion-item lines="none" >
+            プロフィール
+          </ion-item>
+          <ion-item lines="none" >
+            {{profile_txt}}
+          </ion-item>
+          <ion-item lines="none" >
+            <ion-button expand="block" color="primary" color="secondary" type="button" (click)="edit()">アカウント情報修正</ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-slide>
+      <ion-slide >
+        <ion-list>
+            <ion-card *ngFor="let post of post_list" >
+              <ion-item  item-start >
+                      <ion-note item-end style="margin: 0 0 0 auto;">{{post.post_date | date:"yy/MM/dd HH:mm"}}</ion-note>
               </ion-item>
+              <ion-item [hidden]="!post.src.src_type || !post.src.src_url" >
+              <div id=”player” style="margin: 0 auto 0 auto;">
+                {{post.src}}
+              </div>
+              </ion-item>
+              <ion-item  style="left:20px">
+                      <div style="margin: 0 auto 0 0;">
+                              <p >{{post.text}}<span style="color:rgb(99, 99, 99);"></span></p>
+                      </div>
+              </ion-item>
+              <ion-item style="left:20px  display:flex; justify-content:space-between; flex-direction: row;">
+                                      <div>
+                                        <ion-icon name="chatboxes"></ion-icon>
+                                      </div>
+                                      <div>
+                                        <ion-icon name="heart"></ion-icon>{{post.fav_count}}
+                                      </div>
+              </ion-item>
+          </ion-card>
+        </ion-list>
       </ion-slide>
       <ion-slide >
         <ion-list>
-          <ion-item>
-            My投稿
+          <ion-item *ngFor="let friend of friend_list">
+            <div >
+              <p style="padding-left: 10px;margin: 0 0 0 0;">{{friend.name}}</p>
+              <p style="padding-left: 10px;margin: 0 0 0 0;">@{{friend.id}}</p>  
+             </div>
+             <ion-chip>
+              <ion-label (click)="request_friend(search)">友達</ion-label>
+              <ion-icon name="checkmark" *ngIf="friend.status"></ion-icon>
+            </ion-chip>
           </ion-item>
         </ion-list>
       </ion-slide>
       <ion-slide >
         <ion-list>
-          <ion-item>
-            フレンド申請中
-          </ion-item>
-        </ion-list>
-      </ion-slide>
-      <ion-slide >
-        <ion-list>
-          <ion-item>
-            Myファン
+          <ion-item *ngFor="let fun of fun_list">
+            <div >
+              <p style="padding-left: 10px;     margin: 0 0 0 0;">{{fun.name}}</p>
+              <p style="padding-left: 10px;     margin: 0 0 0 0;">@{{fun.id}}</p>  
+             </div>
           </ion-item>
         </ion-list>
       </ion-slide>
 </ion-slides>
   </ion-card>
-  <ion-button expand="block" color="primary" color="secondary" type="button" (click)="edit()">アカウント情報修正</ion-button>
+  
 </ion-content>

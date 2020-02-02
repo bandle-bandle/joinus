@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {IonSlides} from "@ionic/angular";
 import { SoloSearchService } from '../../services/search/solo-search.service';
 import { BandSearchService } from '../../services/search/band-search.service';
 import { RecruitSearchService } from '../../services/search/recruit-search.service';
@@ -10,6 +11,18 @@ import { ProfileService } from '../../services/profile/profile.service';
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
+  @ViewChild(IonSlides,{static:false}) slides: IonSlides;
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400
+  };
+  searchMode;
+  sliders = {
+    profile:0,
+    post:1,
+    friend:2,
+    fun:3
+  }
   my_user_id;
   type;
   result;
@@ -27,6 +40,10 @@ export class AccountPage implements OnInit {
   src="";
   new_src="";
   file:File;
+  profile_txt="";
+  post_list = [];
+  friend_list = [];
+  fun_list = [];
   constructor(
     private route: ActivatedRoute,
     private SoloS_S: SoloSearchService,
@@ -37,7 +54,27 @@ export class AccountPage implements OnInit {
     this.my_user_id = this.route.snapshot.paramMap.get('id') as string;
     this.getSoloProfile(this.my_user_id);
     this.getAvatorURL(this.my_user_id+'/avator/'+this.my_user_id+'.jpg');
+    this.Profile_S.getProfile(this.my_user_id).then(data =>{
+      if(data == null){
+        this.profile_txt = "まだプロフィール文が書かれてません"
+      }else{
+        this.profile_txt = data;
+      }
+    });
+    this.Profile_S.getPost(this.my_user_id).then(data =>{
+      this.post_list = data;
+    });
+    this.Profile_S.getFriends(this.my_user_id).then(data =>{
+      this.friend_list = data;
+    });
+    this.Profile_S.getFun(this.my_user_id).then(data =>{
+      this.fun_list = data;
+    });
    }
+   segmentChanged(ev: any) {
+    this.searchMode = ev.detail.value;;
+    this.slides.slideTo(this.sliders[this.searchMode], 400);
+  }
    getAvatorURL(url){
      let str = this.Profile_S.getAvatorURL(url,this.my_user_id).then(data =>{
       this.src = data;

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
+import { Timeline } from '../../models/timeline';
 @Injectable({
   providedIn: 'root'
 })
@@ -80,5 +81,48 @@ export class ProfileService {
     firebase.storage().ref().child(url).put(file).then(function(snapshot) {
       console.log('Uploaded a blob or file!');
     });
+  }
+
+  async getProfile(id){
+    let text;
+    let ref = await firebase.firestore().collection('solo_account/').doc(id).get().then(doc => {
+      if (!doc.exists) {
+        console.log('No such document!');
+      } else {
+        text = doc.data()["txt"];
+      }
+    }); 
+    return text;
+  }
+  async getPost(id){
+    let list = [];
+    let ref = await firebase.firestore().collection('solo_account/').doc(id).collection('post').orderBy('post_date', 'desc').get();
+    ref.forEach(doc =>{
+      list.push(new Timeline(doc,""));
+    });
+    return list;
+  }
+  async getFriends(id){
+    let list = [];
+    let ref = await firebase.firestore().collection('solo_account/').doc(id).collection('friends').get();
+    ref.forEach(doc =>{
+      list.push({
+        name: doc.data().Name,
+        id:doc.id,
+        status:doc.data().friend_status
+      });
+    });
+    return list;
+  }
+  async getFun(id){
+    let list = [];
+    let ref = await firebase.firestore().collection('solo_account/').doc(id).collection('funs').get();
+    ref.forEach(doc =>{
+      list.push({
+        name: doc.data().Name,
+        id:doc.id,
+      });
+    });
+    return list;
   }
 }
