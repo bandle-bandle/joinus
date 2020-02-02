@@ -10,20 +10,23 @@ export class SoloSearchService {
   constructor() { }
   async getSoloSearch(data){
     let result;
-    try{
-      let list = [];
-      let ref = await firebase.firestore().collection('solo_account/');
-      let query = ref.orderBy("name").startAt(data).endAt([data + '\uf8ff']);
-      query.get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc){
-          list.push(new SoloSearch(doc.id, doc.data()));
+    return new Promise((resolve,reject)=>{
+      try{
+        let list = [];
+        let ref = firebase.firestore().collection('solo_account/');
+        let query = ref.where("name","==",data);
+        query.get().then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc){
+            list.push(new SoloSearch(doc.id, doc.data()));
+          });
+          result = {status: "success", msg: "getSoloSearch is correct", data:list};
+          resolve(result);
         });
-      });
-      result = {status: "success", msg: "getSoloSearch is correct", data:list};
-    } catch (error) {
-      result = {status: "success", msg: "getSoloSearch is not correct", data:error};
-    }
-    return this.result;
+      } catch (error) {
+        result = {status: "success", msg: "getSoloSearch is not correct", data:error};
+        reject(result);
+      }
+    });
   }
   async getSoloProfile(id){
     return new Promise((resolve,reject)=>{

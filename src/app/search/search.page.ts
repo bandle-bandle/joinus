@@ -59,40 +59,31 @@ export class SearchPage implements OnInit {
   }
 
   async search(ev: any){
+    let result;
     const query = ev.target.value;
     switch(this.searchMode){
       case "solo":
+        this.solo_searchList =null;
         console.log("solo");
-        this.result = await this.SoloS_S.getSoloSearch(query);
+        this.SoloS_S.getSoloSearch(query).then(data =>{
+          result = data;
+          if(result.status === "success"){
+            this.solo_searchList = result.data;
+          }
+        });
         break;
       case "band":
         console.log("band");
-        this.result = await this.BandS_S.getBandSearch(query);
+        result = await this.BandS_S.getBandSearch(query);
         break;
       case "recruit":
         console.log("recruit");
-        this.result = await this.RecruitS_S.getRecruitSearch(query);
+        result = await this.RecruitS_S.getRecruitSearch(query);
         break;
       default:
-        this.result = {status: "error", msg: "getSoloSearch front is not working"};
+        result = {status: "error", msg: "getSoloSearch front is not working"};
         console.log("default");
         break;
-    }
-    if(this.result.status === "success"){
-      switch(this.searchMode){
-        case "solo":
-          this.solo_searchList = this.result.data;
-          break;
-        case "band":
-          this.band_searchList = this.result.data;
-          break;
-        case "recruit":
-          this.recruit_searchList = this.result.data;
-          break;
-        default:
-          break;
-      }
-      
     }
   }
   solo_click(search){
