@@ -12,7 +12,7 @@
     <ion-card *ngFor="let timeline of timelineList" (click)="profile(timeline.post_user_id)">
                     <ion-item  item-start >
                             <ion-avatar item-start>
-                                    <img src="../../assets/icon/favicon.png">
+                                    <img src="{{timeline.post_user_avator}}">
                             </ion-avatar>
                             <div>
                                     <p style="padding-left: 10px;     margin: 0 0 0 0;">{{timeline.post_user_name}}</p>

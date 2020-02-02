@@ -34,23 +34,34 @@ export class PostPage implements OnInit {
   ngOnInit() {
   }
   async onPostbuttonClick(){
+    let result1;
+    let result2;
+    let result;
     this.data.post_user_id = this.id;
-    this.result =await this.post_S.getUserName(this.id);
-    
-    if(this.result.status === "success"){
-      this.data.post_user_name = this.result.data;
-      this.result2 =await this.post_S.post(this.data);
-      if(this.result2.status === "success"){
-        
-      }else if (this.result2.status === "error") {
-        const alert = await this.alertController.create({
-          header: 'エラー',
-          message: this.result.msg,
-          buttons: ['OK']
-        });
-        alert.present();
+    result1 =await this.post_S.getUserName(this.id);
+    if(result1.status === "success"){
+      result2 =await this.post_S.getUserAvator(this.id);
+      if(result2.status === "success"){
+        this.data.post_user_name = result1.data;
+        this.data.post_user_avator = result2.data;
+        result =await this.post_S.post(this.data);
+        if(result.status === "success"){
+          
+        }else if (this.result2.status === "error") {
+          const alert = await this.alertController.create({
+            header: 'エラー',
+            message: this.result.msg,
+            buttons: ['OK']
+          });
+          alert.present();
+        }
       }
-    }else if (this.result.status === "error") {
+    }
+    if (
+      result.status === "error"||
+      result1.status === "error"||
+      result2.status === "error"
+    ) {
       const alert = await this.alertController.create({
         header: 'エラー',
         message: this.result.msg,
@@ -58,7 +69,7 @@ export class PostPage implements OnInit {
       });
       alert.present();
     }
-    this.router.navigate(['home/timeline/'+this.result.ref]);
+    this.router.navigate(['home/timeline/'+result.ref]);
   }
   takePicture(){
     const options: CameraOptions = {

@@ -14,7 +14,12 @@ export class TimelineService {
       let list = [];
      let ref = await firebase.firestore().collection('post').orderBy('post_date', 'desc').get();
       ref.forEach(doc =>{
-        list.push(new Timeline(doc));
+        let src;
+        // アバター画像URL生成
+        firebase.storage().ref(doc.data().post_user_avator).getDownloadURL().then( url =>{
+          src = url;
+          list.push(new Timeline(doc,src));
+        });
       });
       this.result = {status: "success", msg: "getTimelineList is correct", data:list};
       

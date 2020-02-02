@@ -10,8 +10,9 @@ export class Timeline {
   post_date: string;
   post_user_id:string;
   post_user_name:string;
+  post_user_avator:string;
   fav_count:number;
-    constructor(data){
+    constructor(data,src){
         
         this.id = data.id;
         this.text = data.data().Text;
@@ -19,6 +20,7 @@ export class Timeline {
         this.src = data.data().src;
         this.post_user_id = data.data().post_user_id;
         this.post_user_name = data.data().post_user_name;
+        this.post_user_avator = src;
         this.fav_count = data.data().fav_count;
     }
 }

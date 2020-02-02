@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 export class PostService {
   result;
   name:string;
+  avator_src:string;
   constructor() { }
   async getUserName(id){
    try {
@@ -25,6 +26,25 @@ export class PostService {
     }
     return this.result;
   }
+  async getUserAvator(id){
+    let result;
+    try {
+      // ユーザー名取得
+      let ref = await firebase.firestore().collection('solo_account').doc(id).get().then(doc => {
+        if (!doc.exists) {
+          console.log('No such document!');
+        } else {
+          this.avator_src = doc.data()["src"];
+          result = {status: "success", msg: "getUserName is correct",data:this.avator_src};
+          console.log('Document data:', this.avator_src);
+        }
+      });  
+     } catch (error) {
+       result = {status: "error", msg: "getUserName is not correct"};
+       console.log(this.result);
+     }
+     return result;
+   }
   async post(data){
     let post_id;
     try {
@@ -36,6 +56,7 @@ export class PostService {
         post_date:data.post_date,
         post_user_id:data.post_user_id,
         post_user_name:data.post_user_name,
+        post_user_avator:data.post_user_avator,
         src:{src_type:"",src_url:""}
       }).then(ref => {
         console.log('Added document with ID: ', ref.id);

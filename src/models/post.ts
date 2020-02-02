@@ -7,6 +7,7 @@ export class Post {
     post_date:string="";
     post_user_id:string="";
     post_user_name:string="";
+    post_user_avator:string="";
     src = {src_type:"",src_url:""};
     constructor(){
     }
