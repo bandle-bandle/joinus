@@ -9,6 +9,7 @@ export class SoloSearchService {
   result;
   constructor() { }
   async getSoloSearch(data){
+    let result;
     try{
       let list = [];
       let ref = await firebase.firestore().collection('solo_account/');
@@ -18,9 +19,9 @@ export class SoloSearchService {
           list.push(new SoloSearch(doc.id, doc.data()));
         });
       });
-      this.result = {status: "success", msg: "getSoloSearch is correct", data:list};
+      result = {status: "success", msg: "getSoloSearch is correct", data:list};
     } catch (error) {
-      this.result = {status: "success", msg: "getSoloSearch is not correct", data:error};
+      result = {status: "success", msg: "getSoloSearch is not correct", data:error};
     }
     return this.result;
   }
