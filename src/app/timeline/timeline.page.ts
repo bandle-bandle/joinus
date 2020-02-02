@@ -52,11 +52,21 @@ export class TimelinePage implements OnInit {
   ngOnInit() {
 
   }
-
+  refreshAction(event){
+    this.getTimelineListReflesh(event);
+    
+  }
   async getTimelineList(){
     this.result = await this.timelineS.getTimelineList();
     if(this.result.status === "success"){
       this.timelineList = this.result.data;
+    }
+  }
+  async getTimelineListReflesh(event){
+    this.result = await this.timelineS.getTimelineList();
+    if(this.result.status === "success"){
+      this.timelineList = this.result.data;
+      event.target.complete();
     }
   }
   onTweetbuttonClick(){
