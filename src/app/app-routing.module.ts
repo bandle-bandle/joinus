@@ -19,7 +19,8 @@ const routes: Routes = [
 
   ,
   { path: 'timeline', loadChildren: './timeline/timeline.module#TimelinePageModule' },  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
-  { path: 'addroom', loadChildren: './addroom/addroom.module#AddroomPageModule' }
+  { path: 'addroom', loadChildren: './addroom/addroom.module#AddroomPageModule' },
+  { path: 'post-date', loadChildren: './post-date/post-date.module#PostDatePageModule' }
 
 ];
 @NgModule({
