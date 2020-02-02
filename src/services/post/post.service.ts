@@ -9,41 +9,49 @@ export class PostService {
   avator_src:string;
   constructor() { }
   async getUserName(id){
-   try {
-     // ユーザー名取得
-     let ref = await firebase.firestore().collection('solo_account').doc(id).get().then(doc => {
-       if (!doc.exists) {
-         console.log('No such document!');
-       } else {
-         this.name = doc.data()["name"];
-         this.result = {status: "success", msg: "getUserName is correct",data:this.name};
-         console.log('Document data:', this.name);
+    let result;
+    return new Promise((resolve,reject)=>{
+      try {
+        // ユーザー名取得
+        let ref = firebase.firestore().collection('solo_account').doc(id).get().then(doc => {
+          if (!doc.exists) {
+            console.log('No such document!');
+          } else {
+            this.name = doc.data()["name"];
+            result = {status: "success", msg: "getUserName is correct",data:this.name};
+            console.log('Document data:', this.name);
+            resolve(result);
+          }
+        });
+        
+       } catch (error) {
+         this.result = {status: "error", msg: "getUserName is not correct"};
+         console.log(this.result);
+         reject(this.result);
        }
-     });  
-    } catch (error) {
-      this.result = {status: "error", msg: "getUserName is not correct"};
-      console.log(this.result);
-    }
-    return this.result;
+    });
   }
   async getUserAvator(id){
     let result;
-    try {
-      // ユーザー名取得
-      let ref = await firebase.firestore().collection('solo_account').doc(id).get().then(doc => {
-        if (!doc.exists) {
-          console.log('No such document!');
-        } else {
-          this.avator_src = doc.data()["src"];
-          result = {status: "success", msg: "getUserName is correct",data:this.avator_src};
-          console.log('Document data:', this.avator_src);
-        }
-      });  
-     } catch (error) {
-       result = {status: "error", msg: "getUserName is not correct"};
-       console.log(this.result);
-     }
-     return result;
+    return new Promise((resolve,reject)=>{
+      try {
+        // ユーザー名取得
+        let ref = firebase.firestore().collection('solo_account').doc(id).get().then(doc => {
+          if (!doc.exists) {
+            console.log('No such document!');
+          } else {
+            this.avator_src = doc.data()["src"];
+            result = {status: "success", msg: "getUserName is correct",data:this.avator_src};
+            console.log('Document data:', this.avator_src);
+            resolve(result);
+          }
+        });  
+       } catch (error) {
+         result = {status: "error", msg: "getUserName is not correct"};
+         console.log(this.result);
+         reject(this.result);
+       }
+    });
    }
   async post(data){
     let post_id;

@@ -38,38 +38,30 @@ export class PostPage implements OnInit {
     let result2;
     let result;
     this.data.post_user_id = this.id;
-    result1 =await this.post_S.getUserName(this.id);
-    if(result1.status === "success"){
-      result2 =await this.post_S.getUserAvator(this.id);
-      if(result2.status === "success"){
-        this.data.post_user_name = result1.data;
-        this.data.post_user_avator = result2.data;
-        result =await this.post_S.post(this.data);
-        if(result.status === "success"){
-          
-        }else if (this.result2.status === "error") {
-          const alert = await this.alertController.create({
-            header: 'エラー',
-            message: this.result.msg,
-            buttons: ['OK']
-          });
-          alert.present();
-        }
+    this.post_S.getUserName(this.id).then(data =>{
+      result1 = data;
+      if(result1.status === "success"){
+        this.post_S.getUserAvator(this.id).then(data =>{
+          result2 = data;
+          if(result2.status === "success"){
+            this.data.post_user_name = result1.data;
+            this.data.post_user_avator = result2.data;
+            result =this.post_S.post(this.data);
+            if(result.status === "success"){
+              
+            }else if (result.status === "error") {
+              const alert = this.alertController.create({
+                header: 'エラー',
+                message: this.result.msg,
+                buttons: ['OK']
+              });
+              //alert.present();
+            }
+          }
+        });
       }
-    }
-    if (
-      result.status === "error"||
-      result1.status === "error"||
-      result2.status === "error"
-    ) {
-      const alert = await this.alertController.create({
-        header: 'エラー',
-        message: this.result.msg,
-        buttons: ['OK']
-      });
-      alert.present();
-    }
-    this.router.navigate(['home/timeline/'+result.ref]);
+    });
+    this.router.navigate(['home/timeline/'+this.id]);
   }
   takePicture(){
     const options: CameraOptions = {
