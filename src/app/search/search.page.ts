@@ -5,7 +5,8 @@ import {IonSlides} from "@ionic/angular";
 import { SoloSearchService } from '../../services/search/solo-search.service';
 import { BandSearchService } from '../../services/search/band-search.service';
 import { RecruitSearchService } from '../../services/search/recruit-search.service';
-import { ProfilePage } from '../profile/profile.page';
+import { FriendService } from '../../services/friend/friend.service';
+import { FunService } from '../../services/fun/fun.service';
 @Component({
   selector: 'app-search',
   templateUrl: './search.page.html',
@@ -35,6 +36,8 @@ export class SearchPage implements OnInit {
   band_searchList: any;
   recruit_searchList: any;
   constructor(
+    private Fun_S: FunService,
+    private Friend_S: FriendService,
     private SoloS_S: SoloSearchService,
     private BandS_S: BandSearchService,
     private RecruitS_S: RecruitSearchService,
@@ -94,5 +97,17 @@ export class SearchPage implements OnInit {
   }
   solo_click(search){
     this.navCtrl.navigateForward('profile/'+this.my_user_id+'/'+this.searchMode+'/'+search.id);
+  }
+  async request_friend(search){
+    let result;
+    result = await this.SoloS_S.getSoloProfile(this.my_user_id);
+    if(result.status === "success"){
+      await this.Friend_S.request_friend(search.id,search,this.my_user_id,result.data);
+      search.friend_status =true;
+    }
+    
+  }
+  add_fun(search){
+
   }
 }

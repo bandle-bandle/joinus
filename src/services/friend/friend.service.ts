@@ -30,4 +30,27 @@ export class FriendService {
        }
     });
   }
+  async request_friend(ref1_id,ref1_item,ref2_id,ref2_item){
+    let result;
+    try{
+      // 相手のFriendsに新規登録
+      let ref1 = await firebase.firestore().collection('solo_account').doc(ref1_id).collection('friends').doc(ref2_id);
+      ref1.set({
+        Name:ref2_item.name,
+        id:ref2_id,
+        friend_status:false
+       });
+      // 自分のFriendsに新規登録
+      let ref2 = await firebase.firestore().collection('solo_account').doc(ref2_id).collection('friends').doc(ref1_id);
+      ref2.set({
+        Name:ref1_item.name,
+        id:ref1_id,
+        friend_status:false
+       });
+       result = {status: "success", msg: "getTimelineList is correct"};
+    }catch (error){
+      result = {status: "error", msg: "エラー"};
+    }
+    return result;
+  }
 }
