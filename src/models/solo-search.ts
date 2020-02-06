@@ -1,6 +1,6 @@
 
 
-
+import { Friend } from '../models/friend';
 export class SoloSearch {
   id:string;
   name: string;
@@ -8,12 +8,14 @@ export class SoloSearch {
   sex: string;
   profile: string;
   area:string;
-    constructor(id,data){
+  friend: Friend;
+    constructor(id,data,friend){
       this.id = id;
       this.name = data.name;
       this.age = data.age;
       this.sex = data.sex;
       this.profile = data.profile;
       this.area = data.area;
+      this.friend = friend;
     }
 }

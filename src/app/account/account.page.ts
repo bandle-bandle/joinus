@@ -5,6 +5,7 @@ import { SoloSearchService } from '../../services/search/solo-search.service';
 import { BandSearchService } from '../../services/search/band-search.service';
 import { RecruitSearchService } from '../../services/search/recruit-search.service';
 import { ProfileService } from '../../services/profile/profile.service';
+import { FriendService } from '../../services/friend/friend.service';
 @Component({
   selector: 'app-account',
   templateUrl: './account.page.html',
@@ -50,6 +51,7 @@ export class AccountPage implements OnInit {
     private BandS_S: BandSearchService,
     private RecruitS_S: RecruitSearchService,
     private Profile_S: ProfileService,
+    private Friend_S: FriendService,
   ) {
     this.my_user_id = this.route.snapshot.paramMap.get('id') as string;
     this.getSoloProfile(this.my_user_id);
@@ -92,8 +94,17 @@ export class AccountPage implements OnInit {
     this.Profile_S.setAvatorFile(this.my_user_id,this.my_user_id+'/avator/'+this.my_user_id+'.jpg',this.file);
     this.getAvatorURL(this.my_user_id+'/avator/'+this.my_user_id+'.jpg');
   }
-   friendRequest(){
-    this.Profile_S
+  async res_friend(friend){
+    if(friend.friend_status !=null && friend.friend_status ==false){
+
+    }else{
+      let result;
+      result = await this.SoloS_S.getSoloProfile(this.my_user_id);
+      if(result.status === "success"){
+        await this.Friend_S.res_friend(friend.id,friend,this.my_user_id,result.data);
+        friend.status =true;
+      }
+    }
    }
   addFun(){
 

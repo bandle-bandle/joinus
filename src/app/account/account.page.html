@@ -91,9 +91,15 @@
               <p style="padding-left: 10px;margin: 0 0 0 0;">{{friend.name}}</p>
               <p style="padding-left: 10px;margin: 0 0 0 0;">@{{friend.id}}</p>  
              </div>
-             <ion-chip>
-              <ion-label (click)="request_friend(search)">友達</ion-label>
-              <ion-icon name="checkmark" *ngIf="friend.status"></ion-icon>
+             <ion-chip *ngIf="friend.status == null">
+              <ion-label (click)="res_friend(friend)">友達になる</ion-label>
+            </ion-chip>
+            <ion-chip *ngIf="friend.status != null && friend.status == false" color="secondary">
+              <ion-label (click)="res_friend(friend)">友達申請中</ion-label>
+            </ion-chip>
+            <ion-chip *ngIf="friend.status != null && friend.status == true" color="primary">
+              <ion-label (click)="res_friend(search)">友達</ion-label>
+              <ion-icon name="checkmark" ></ion-icon>
             </ion-chip>
           </ion-item>
         </ion-list>

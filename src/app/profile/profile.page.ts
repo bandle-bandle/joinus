@@ -4,7 +4,7 @@ import { SoloSearchService } from '../../services/search/solo-search.service';
 import { BandSearchService } from '../../services/search/band-search.service';
 import { RecruitSearchService } from '../../services/search/recruit-search.service';
 import { ProfileService } from '../../services/profile/profile.service';
-import { async } from 'rxjs/internal/scheduler/async';
+import { FriendService } from '../../services/friend/friend.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -31,6 +31,7 @@ export class ProfilePage implements OnInit {
     private BandS_S: BandSearchService,
     private RecruitS_S: RecruitSearchService,
     private Profile_S: ProfileService,
+    private Friend_S: FriendService,
   ) {
     let result;
     this.my_user_id = this.route.snapshot.paramMap.get('my_user_id') as string;
@@ -72,8 +73,12 @@ export class ProfilePage implements OnInit {
     //   });
     // });
    }
-   friendRequest(){
-    this.Profile_S.friendRequest(this.my_user_id);
+   async friendRequest(){
+    let result;
+    result = await this.SoloS_S.getSoloProfile(this.my_user_id);
+    if(result.status === "success"){
+      await this.Friend_S.request_friend(this.profile_id,this.profile_data,this.my_user_id,result.data);
+    }
    }
   addFun(){
 

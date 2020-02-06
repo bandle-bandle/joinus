@@ -65,7 +65,7 @@ export class SearchPage implements OnInit {
       case "solo":
         this.solo_searchList =null;
         console.log("solo");
-        this.SoloS_S.getSoloSearch(query).then(data =>{
+        this.SoloS_S.getSoloSearch(query,this.my_user_id).then(data =>{
           result = data;
           if(result.status === "success"){
             this.solo_searchList = result.data;
@@ -90,13 +90,16 @@ export class SearchPage implements OnInit {
     this.navCtrl.navigateForward('profile/'+this.my_user_id+'/'+this.searchMode+'/'+search.id);
   }
   async request_friend(search){
-    let result;
-    result = await this.SoloS_S.getSoloProfile(this.my_user_id);
-    if(result.status === "success"){
-      await this.Friend_S.request_friend(search.id,search,this.my_user_id,result.data);
-      search.friend_status =true;
+    if(search.friend.status !=null && search.friend.status ==false){
+
+    }else{
+      let result;
+      result = await this.SoloS_S.getSoloProfile(this.my_user_id);
+      if(result.status === "success"){
+        await this.Friend_S.request_friend(search.id,search,this.my_user_id,result.data);
+        search.friend_status =false;
+      }
     }
-    
   }
   add_fun(search){
 

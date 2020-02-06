@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SoloSearch } from '../../models/solo-search';
+import { Friend } from '../../models/friend';
 import * as firebase from 'firebase';
 @Injectable({
   providedIn: 'root'
@@ -7,17 +8,27 @@ import * as firebase from 'firebase';
 export class SoloSearchService {
   soloSearch:SoloSearch;
   result;
+
   constructor() { }
-  async getSoloSearch(data){
+
+  async getSoloSearch(data,my_user_id){
     let result;
     return new Promise((resolve,reject)=>{
       try{
         let list = [];
         let ref = firebase.firestore().collection('solo_account/');
         let query = ref.where("name","==",data);
+        // ソロアカウントからキーワード検索
         query.get().then(function(querySnapshot) {
           querySnapshot.forEach(function(doc){
-            list.push(new SoloSearch(doc.id, doc.data()));
+            // 該当リストのFriend申請状態を取得
+            let ref = firebase.firestore().collection('solo_account/'+my_user_id+'/friends/').doc(doc.id).get().then(doc2 =>{
+              if (!doc2.exists) {
+                list.push(new SoloSearch(doc.id, doc.data(),null));
+              } else {
+                list.push(new SoloSearch(doc.id, doc.data(),new Friend(doc2.data())));
+              }
+            });
           });
           result = {status: "success", msg: "getSoloSearch is correct", data:list};
           resolve(result);

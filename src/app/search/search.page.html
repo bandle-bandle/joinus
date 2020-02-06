@@ -18,9 +18,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides pager="true"  [options]="slideOpts">
-    <ion-slide  style="height: 75vh;">
-      <ion-list style="height: 75vh;">
+  <ion-slides pager="true"  [options]="slideOpts"style="top:2vh;">
+    <ion-slide  style="height: 70vh;top:2vh;">
+      <ion-list style="height: 70vh;top:">
           <ion-item *ngFor="let search of solo_searchList" style="width:100vw;" >
                   <ion-avatar (click)="solo_click(search)">
                           <img src="../../assets/icon/favicon.png">
@@ -29,9 +29,15 @@
                           <p style="padding-left: 10px;     margin: 0 0 0 0;">{{search.name}}</p>
                           <p style="padding-left: 10px;     margin: 0 0 0 0;">@{{search.id}}</p>  
                   </div>
-                  <ion-chip>
+                  <ion-chip *ngIf="search.friend.status == null">
+                    <ion-label (click)="request_friend(search)">友達になる</ion-label>
+                  </ion-chip>
+                  <ion-chip *ngIf="search.friend.status != null && search.friend.status == false" color="secondary">
+                    <ion-label (click)="request_friend(search)">友達申請中</ion-label>
+                  </ion-chip>
+                  <ion-chip *ngIf="search.friend.status != null && search.friend.status == true" color="primary">
                     <ion-label (click)="request_friend(search)">友達</ion-label>
-                    <ion-icon name="checkmark" *ngIf="search.friend_status"></ion-icon>
+                    <ion-icon name="checkmark" ></ion-icon>
                   </ion-chip>
                   <ion-chip>
                     <ion-label (click)="add_fun(search)">ファン</ion-label>
@@ -40,8 +46,8 @@
           </ion-item>
       </ion-list>
     </ion-slide>
-    <ion-slide style="height: 75vh;">
-      <ion-list style="height: 75vh;">
+    <ion-slide style="height: 70vh;top:2vh;">
+      <ion-list style="height: 70vh;">
         <ion-item *ngFor="let search of band_searchList" style="width:100vw;">
                 <ion-avatar >
                         <img src="../../assets/icon/favicon.png">
@@ -53,8 +59,8 @@
         </ion-item>
     </ion-list>
     </ion-slide>
-    <ion-slide  style="height: 75vh;">
-      <ion-list style="height: 75vh;">
+    <ion-slide  style="height: 70vh;top:2vh;">
+      <ion-list style="height: 70vh;">
         <ion-item *ngFor="let search of recruit_searchList" style="width:100vw;">
                 <ion-avatar>
                         <img src="../../assets/icon/favicon.png">
