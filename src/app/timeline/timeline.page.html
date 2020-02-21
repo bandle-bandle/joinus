@@ -37,15 +37,25 @@
                             </div>
                     </ion-item>
                     <ion-item style="left:20px  display:flex; justify-content:space-between; flex-direction: row;">
-                                            <div>
-                                              <ion-icon name="chatboxes"></ion-icon>
-                                            </div>
-                                            <div>
-                                              <ion-icon name="heart"></ion-icon>{{timeline.fav_count}}
-                                            </div>
+                      <ion-grid>
+                        <ion-row>
+                          <ion-col>
+                            <ion-icon name="chatboxes"></ion-icon>{{timeline.chat_count}}
+                          </ion-col>
+                          <ion-col>
+                            <ion-icon name="heart"></ion-icon>{{timeline.fav_count}}
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
                     </ion-item>
     </ion-card>
 </ion-list>
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadNextData($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="ロード中">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
 <!-- fab placed to the bottom end -->
 <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="onTweetbuttonClick()">
   <ion-fab-button>

@@ -56,6 +56,9 @@ export class TimelinePage implements OnInit {
     this.getTimelineListReflesh(event);
     
   }
+  loadNextData($event){
+    
+  }
   async getTimelineList(){
     this.result = await this.timelineS.getTimelineList();
     if(this.result.status === "success"){
@@ -63,6 +66,13 @@ export class TimelinePage implements OnInit {
     }
   }
   async getTimelineListReflesh(event){
+    this.result = await this.timelineS.getTimelineList();
+    if(this.result.status === "success"){
+      this.timelineList = this.result.data;
+      event.target.complete();
+    }
+  }
+  async getNextTimelineList(event){
     this.result = await this.timelineS.getTimelineList();
     if(this.result.status === "success"){
       this.timelineList = this.result.data;
